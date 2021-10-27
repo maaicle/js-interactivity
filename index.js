@@ -22,14 +22,25 @@ document.querySelector('form').addEventListener('submit', event => {
     addMovie(event);    
 })
 
+let revealMessage = () => {
+    message.classList.remove('hide');
+    setTimeout(() => message.classList.add('hide'), 1000)
+}
+
 let deleteMovie = event => {
     event.target.parentNode.remove();
-    message.textContent = "Movie deleted!";
+    message.textContent = `${event.target.parentNode.childNodes[0].textContent} deleted!`;
+    revealMessage();
 }
 
 let crossOffMovie = event => {
     event.target.classList.toggle('checked');
-    event.target.classList.contains('checked') ? message.textContent = 'Movie Watched' : message.textContent = 'Movie added back!';
+    if (event.target.classList.contains('checked')) {
+        message.textContent = `${event.target.textContent} Watched`;
+    } else {
+        message.textContent = `${event.target.textContent} added back!`;
+    };
+    revealMessage();
 }
 
 // const inputField = 'elf';
